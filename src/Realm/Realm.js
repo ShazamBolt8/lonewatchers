@@ -2,6 +2,7 @@ import { createScene } from "../component/scene.js";
 import { createCamera } from "../component/camera.js";
 import { createRenderer } from "../system/renderer.js";
 import { createCube } from "../component/cube.js";
+import { directLight } from "../component/light.js";
 import { Resizer } from "../system/Resizer.js";
 import { Loop } from "../system/Loop.js";
 
@@ -11,10 +12,13 @@ class Realm {
     this.camera = createCamera();
     this.scene = createScene();
 
-    //add a basic cube
-    this.cube = createCube();
-    this.cube.rotateY(2); //for perspective
-    this.scene.add(this.cube);
+    const cube = createCube();
+    cube.rotateY(0.6);
+    cube.rotateX(0.5);
+    const spotLight = directLight(8);
+    spotLight.position.set(0, 30, 20);
+
+    this.scene.add(cube, spotLight);
 
     this.renderer = createRenderer();
     this.container.append(this.renderer.domElement);
