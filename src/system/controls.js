@@ -5,7 +5,6 @@ function createControls(camera, canvas) {
   controls.autoRotate = false;
   controls.maxDistance = 50;
   controls.minDistance = 0;
-  controls.maxPolarAngle = Math.PI / 2.2;
   controls.tick = (delta) => {
     controls.update();
   };
