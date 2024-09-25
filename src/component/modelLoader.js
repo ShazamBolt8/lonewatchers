@@ -8,4 +8,12 @@ async function loadGLTFModel(models) {
   });
   return result;
 }
+function loadMTL(mtlPath, mtlFile) {
+  return new Promise((resolve) => {
+    new MTLLoader().setPath(mtlPath).load(mtlFile, function (materials) {
+      materials.preload();
+      resolve(materials);
+    });
+  });
+}
 export { loadGLTFModel };
