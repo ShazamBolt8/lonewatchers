@@ -7,6 +7,5 @@ async function main() {
 }
 
 main().catch((err) => {
-  realm.stop();
   console.error(err);
 });
