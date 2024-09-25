@@ -2,10 +2,12 @@ import { Realm } from "../src/Realm/Realm.js";
 async function main() {
   const container = document.getElementById("scene-container");
   const realm = new Realm(container);
-  await realm.init();
-  realm.start();
+  try {
+    await realm.init();
+    realm.start();
+  } catch (error) {
+    console.error(error);
+    realm.stop();
+  }
 }
-
-main().catch((err) => {
-  console.error(err);
-});
+main();
