@@ -32,4 +32,9 @@ function loadOBJ(objPath, objFile, materials) {
       );
   });
 }
+async function loadOBJModelWithMTL(filePath, objFile, mtlFile) {
+  const materials = await loadMTL(filePath, mtlFile);
+  const object = await loadOBJ(filePath, objFile, materials);
+  return object;
+}
 export { loadGLTFModel };
