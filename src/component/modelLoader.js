@@ -1,4 +1,7 @@
 import { GLTFLoader } from "../../vendor/three/GLTFLoader.js";
+import { MTLLoader } from "../../vendor/three/MTLLoader.js";
+import { OBJLoader } from "../../vendor/three/OBJLoader.js";
+import { handleProgress } from "./handleProgress.js";
 async function loadGLTFModel(models) {
   const loader = new GLTFLoader();
   let result = [];
