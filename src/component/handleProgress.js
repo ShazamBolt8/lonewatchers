@@ -5,3 +5,4 @@ function handleProgress(xhr, message = "") {
     console.log(log.trim());
   }
 }
+export { handleProgress };
