@@ -6,20 +6,21 @@ import { createControls } from "../system/controls.js";
 import { directLight } from "../component/light.js";
 import { Resizer } from "../system/Resizer.js";
 import { Loop } from "../system/Loop.js";
+import { loadOBJModelWithMTL } from "../component/modelLoader.js";
 
 class Realm {
   constructor(container) {
     this.container = container;
+
     this.camera = createCamera();
+    this.camera.position.set(0, 0, 5);
+
     this.scene = createScene();
 
-    const cube = createCube();
-    cube.rotateY(0.6);
-    cube.rotateX(0.5);
-    const spotLight = directLight(8);
-    spotLight.position.set(0, 30, 20);
+    const spotLight = directLight(10);
+    spotLight.position.set(0, 0, 3);
 
-    this.scene.add(cube, spotLight);
+    this.scene.add(spotLight);
 
     this.renderer = createRenderer();
     this.container.append(this.renderer.domElement);
@@ -30,7 +31,12 @@ class Realm {
     this.loop.updatables.push(this.controls);
     this.reszer = new Resizer(this.container, this.camera, this.renderer);
   }
-  async init() {}
+  async init() {
+    const cctv = await loadOBJModelWithMTL("../../assets/previews/", "camera.obj", "camera.mtl");
+    cctv.rotation.y = 0.5;
+    cctv.position.x = -0.5;
+    this.scene.add(cctv);
+  }
   render() {
     this.renderer.render(this.scene, this.camera);
   }
