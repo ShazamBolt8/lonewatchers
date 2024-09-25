@@ -37,4 +37,4 @@ async function loadOBJModelWithMTL(filePath, objFile, mtlFile) {
   const object = await loadOBJ(filePath, objFile, materials);
   return object;
 }
-export { loadGLTFModel };
+export { loadGLTFModel, loadMTL, loadOBJ, loadOBJModelWithMTL };
