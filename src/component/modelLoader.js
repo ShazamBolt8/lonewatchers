@@ -13,10 +13,16 @@ async function loadGLTFModel(models) {
 }
 function loadMTL(mtlPath, mtlFile) {
   return new Promise((resolve) => {
-    new MTLLoader().setPath(mtlPath).load(mtlFile, function (materials) {
-      materials.preload();
-      resolve(materials);
-    });
+    new MTLLoader().setPath(mtlPath).load(
+      mtlFile,
+      function (materials) {
+        materials.preload();
+        resolve(materials);
+      },
+      (progress) => {
+        handleProgress(progress, mtlFile);
+      },
+    );
   });
 }
 function loadOBJ(objPath, objFile, materials) {
@@ -30,7 +36,7 @@ function loadOBJ(objPath, objFile, materials) {
           resolve(object);
         },
         (progress) => {
-          handleProgress(progress);
+          handleProgress(progress, objFile);
         },
       );
   });
