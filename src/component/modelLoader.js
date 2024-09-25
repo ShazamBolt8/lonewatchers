@@ -16,4 +16,20 @@ function loadMTL(mtlPath, mtlFile) {
     });
   });
 }
+function loadOBJ(objPath, objFile, materials) {
+  return new Promise((resolve) => {
+    new OBJLoader()
+      .setMaterials(materials)
+      .setPath(objPath)
+      .load(
+        objFile,
+        function (object) {
+          resolve(object);
+        },
+        (progress) => {
+          handleProgress(progress);
+        },
+      );
+  });
+}
 export { loadGLTFModel };
