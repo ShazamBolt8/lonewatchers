@@ -17,3 +17,10 @@ body {
   width: 100%;
   background: #282828;
 }
+#log-bar {
+  position: absolute;
+  bottom: 0;
+  background: #000000;
+  color: #ffffff;
+  width: 100%;
+}

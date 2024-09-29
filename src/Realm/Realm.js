@@ -8,6 +8,8 @@ import { Resizer } from "../system/Resizer.js";
 import { Loop } from "../system/Loop.js";
 import { loadGLTFModel } from "../component/modelLoader.js";
 import { CCTV } from "../component/CCTV.js";
+import { createStats } from "../component/createStats.js";
+
 class Realm {
   constructor(container) {
     this.container = container;
@@ -23,18 +25,20 @@ class Realm {
     spotLight2.position.set(-2, 0, 0);
     this.scene.add(spotLight1, spotLight2);
 
+    this.stats = createStats(this.logBar);
+
     this.renderer = createRenderer();
     this.container.append(this.renderer.domElement);
 
     this.controls = createControls(this.camera, this.renderer.domElement);
 
     this.loop = new Loop(this.camera, this.scene, this.renderer);
-    this.loop.updatables.push(this.controls);
+    this.loop.updatables.push(this.controls, this.stats);
     this.resizer = new Resizer(this.container, this.camera, this.renderer);
   }
   async init() {
-    const rightCamera = new CCTV("right", this.scene, this.loop);
-    const leftCamera = new CCTV("left", this.scene, this.loop);
+    const rightCamera = new CCTV("right", this.scene, this.loop, this.logBar);
+    const leftCamera = new CCTV("left", this.scene, this.loop, this.logBar);
     await rightCamera.init();
     await leftCamera.init();
     rightCamera.toScene();
