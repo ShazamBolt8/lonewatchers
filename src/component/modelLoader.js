@@ -2,14 +2,19 @@ import { GLTFLoader } from "../../vendor/three/GLTFLoader.js";
 import { MTLLoader } from "../../vendor/three/MTLLoader.js";
 import { OBJLoader } from "../../vendor/three/OBJLoader.js";
 import { handleProgress } from "./handleProgress.js";
-async function loadGLTFModel(models) {
+async function loadGLTFModel(glbFile) {
   const loader = new GLTFLoader();
-  let result = [];
-  const resultData = await Promise.all(models.map((model) => loader.loadAsync(model)));
-  resultData.map((model) => {
-    result.push(model.scene.children[0]);
+  return new Promise((resolve) => {
+    loader.load(
+      glbFile,
+      (model) => {
+        resolve(model.scene);
+      },
+      (progress) => {
+        handleProgress(progress, glbFile);
+      },
+    );
   });
-  return result;
 }
 function loadMTL(mtlPath, mtlFile) {
   return new Promise((resolve) => {
