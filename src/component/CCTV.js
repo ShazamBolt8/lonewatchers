@@ -21,10 +21,10 @@ class CCTV {
     this.joint.rotation.set(0, 0, 0);
     this.cctv.scale.set(0.6, 0.6, 0.6);
     if (this.role == "left") {
-      this.cctv.position.x = -1;
+      this.cctv.position.x = -1.5;
     }
     if (this.role == "right") {
-      this.cctv.position.x = 1;
+      this.cctv.position.x = 1.5;
     }
   }
   toScene() {
