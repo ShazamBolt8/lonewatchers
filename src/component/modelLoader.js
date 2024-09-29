@@ -8,7 +8,7 @@ async function loadGLTFModel(glbFile) {
     loader.load(
       glbFile,
       (model) => {
-        resolve(model.scene);
+        resolve(model);
       },
       (progress) => {
         handleProgress(progress, glbFile);
