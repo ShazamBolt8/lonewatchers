@@ -1,16 +1,21 @@
 import { loadGLTFModel } from "../component/modelLoader.js";
+import { AnimationMixer } from "../../vendor/three/three.module.js";
+
 class CCTV {
   constructor(role, scene, loop) {
-    this.cctv = this.joint = null;
+    this.cctv = this.joint = this.mixer = null;
     this.role = role;
     this.scene = scene;
     this.loop = loop;
+    this.animations = [];
   }
   async loadCCTV() {
     return await loadGLTFModel("../../assets/previews/cctv_anim.glb");
   }
   async init() {
     const model = await this.loadCCTV();
+    this.mixer = new AnimationMixer(this.cctv);
+    this.animations.push(...model.animations);
     this.cctv = model.scene;
     this.joint = this.cctv.children[0].children[1].children[0];
     this.joint.rotation.set(0, 0, 0);
@@ -26,6 +31,11 @@ class CCTV {
     this.loop.updatables.push(this);
     this.scene.add(this.cctv);
   }
-  tick(delta) {}
+  tick(delta) {
+    if (this.role === "left") {
+    }
+    if (this.role === "right") {
+    }
+  }
 }
 export { CCTV };
