@@ -2,11 +2,12 @@ import { loadGLTFModel } from "../component/modelLoader.js";
 import { AnimationMixer } from "../../vendor/three/three.module.js";
 
 class CCTV {
-  constructor(role, scene, loop) {
+  constructor(role, scene, loop, isMobile) {
     this.cctv = this.joint = this.mixer = null;
     this.role = role;
     this.scene = scene;
     this.loop = loop;
+    this.isMobile = isMobile;
     this.animations = [];
   }
   async loadCCTV() {
@@ -20,11 +21,13 @@ class CCTV {
     this.joint = this.cctv.children[0].children[1].children[0];
     this.joint.rotation.set(0, 0, 0);
     this.cctv.scale.set(0.6, 0.6, 0.6);
-    if (this.role == "left") {
-      this.cctv.position.x = -1.5;
-    }
-    if (this.role == "right") {
-      this.cctv.position.x = 1.5;
+    const positionOffsets = {
+      left: this.isMobile ? -0.8 : -1.5,
+      right: this.isMobile ? 0.8 : 1.5,
+    };
+    this.cctv.position.x = positionOffsets[this.role];
+    if (this.isMobile) {
+      this.cctv.scale.set(0.5, 0.5, 0.5);
     }
   }
   toScene() {

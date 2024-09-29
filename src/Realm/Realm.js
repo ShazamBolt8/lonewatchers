@@ -14,6 +14,8 @@ class Realm {
   constructor(container) {
     this.container = container;
 
+    this.isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
+
     this.camera = createCamera();
     this.camera.position.set(0, 0, 5);
 
@@ -23,22 +25,30 @@ class Realm {
     spotLight1.position.set(2, 0, 0);
     const spotLight2 = directLight(7);
     spotLight2.position.set(-2, 0, 0);
+
+    if (this.isMobile) {
+      this.camera.position.set(0, 0, 9);
+      spotLight1.position.set(1.2, 0, 0);
+      spotLight2.position.set(-1.2, 0, 0);
+    }
+
     this.scene.add(spotLight1, spotLight2);
 
-    this.stats = createStats(this.logBar);
+    this.stats = createStats();
 
     this.renderer = createRenderer();
     this.container.append(this.renderer.domElement);
 
-    this.controls = createControls(this.camera, this.renderer.domElement);
+    // this.controls = createControls(this.camera, this.renderer.domElement);
+    //this.loop.updatables.push(this.controls);
 
     this.loop = new Loop(this.camera, this.scene, this.renderer);
-    this.loop.updatables.push(this.controls, this.stats);
+    this.loop.updatables.push(this.stats);
     this.resizer = new Resizer(this.container, this.camera, this.renderer);
   }
   async init() {
-    const rightCamera = new CCTV("right", this.scene, this.loop, this.logBar);
-    const leftCamera = new CCTV("left", this.scene, this.loop, this.logBar);
+    const rightCamera = new CCTV("right", this.scene, this.loop, this.isMobile);
+    const leftCamera = new CCTV("left", this.scene, this.loop, this.isMobile);
     await rightCamera.init();
     await leftCamera.init();
     rightCamera.toScene();
