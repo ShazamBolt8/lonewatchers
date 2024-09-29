@@ -1,4 +1,4 @@
-import { AmbientLight, DirectionalLight, HemisphereLight } from "/vendor/three/three.module.js";
+import { AmbientLight, DirectionalLight, HemisphereLight } from "../../vendor/three/three.module.js";
 function ambientLight(intensity = 1, color = 0xffffff) {
   const light = new AmbientLight(color, intensity);
   return light;
