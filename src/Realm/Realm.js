@@ -6,7 +6,7 @@ import { createControls } from "../system/controls.js";
 import { directLight } from "../component/light.js";
 import { Resizer } from "../system/Resizer.js";
 import { Loop } from "../system/Loop.js";
-import { loadOBJModelWithMTL } from "../component/modelLoader.js";
+import { loadGLTFModel } from "../component/modelLoader.js";
 
 class Realm {
   constructor(container) {
@@ -32,9 +32,8 @@ class Realm {
     this.reszer = new Resizer(this.container, this.camera, this.renderer);
   }
   async init() {
-    const cctv = await loadOBJModelWithMTL("../../assets/previews/", "camera.obj", "camera.mtl");
-    cctv.rotation.y = 0.5;
-    cctv.position.x = -0.5;
+    const cctv = await loadGLTFModel(".././../assets/previews/camera.glb");
+    console.log(cctv);
     this.scene.add(cctv);
   }
   render() {
