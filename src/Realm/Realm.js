@@ -32,9 +32,7 @@ class Realm {
     this.reszer = new Resizer(this.container, this.camera, this.renderer);
   }
   async init() {
-    const cctv = await loadGLTFModel("../../../assets/previews/camera.glb");
-    console.log(cctv);
-    this.scene.add(cctv);
+
   }
   render() {
     this.renderer.render(this.scene, this.camera);
