@@ -7,7 +7,7 @@ import { directLight } from "../component/light.js";
 import { Resizer } from "../system/Resizer.js";
 import { Loop } from "../system/Loop.js";
 import { loadGLTFModel } from "../component/modelLoader.js";
-
+import { CCTV } from "../component/CCTV.js";
 class Realm {
   constructor(container) {
     this.container = container;
@@ -32,7 +32,12 @@ class Realm {
     this.reszer = new Resizer(this.container, this.camera, this.renderer);
   }
   async init() {
-    
+    const rightCamera = new CCTV("right", this.scene, this.loop);
+    const leftCamera = new CCTV("left", this.scene, this.loop);
+    await rightCamera.init();
+    await leftCamera.init();
+    rightCamera.toScene();
+    leftCamera.toScene();
   }
   render() {
     this.renderer.render(this.scene, this.camera);

@@ -14,9 +14,9 @@ class CCTV {
   }
   async init() {
     const model = await this.loadCCTV();
+    this.cctv = model.scene;
     this.mixer = new AnimationMixer(this.cctv);
     this.animations.push(...model.animations);
-    this.cctv = model.scene;
     this.joint = this.cctv.children[0].children[1].children[0];
     this.joint.rotation.set(0, 0, 0);
     this.cctv.scale.set(0.6, 0.6, 0.6);
