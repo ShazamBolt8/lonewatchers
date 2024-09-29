@@ -33,8 +33,12 @@ class CCTV {
   }
   tick(delta) {
     if (this.role === "left") {
+      this.mixer.clipAction(this.animations[0]).play();
+      this.mixer.update(delta);
     }
     if (this.role === "right") {
+      this.mixer.clipAction(this.animations[1]).play();
+      this.mixer.update(delta);
     }
   }
 }

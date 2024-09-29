@@ -32,7 +32,7 @@ class Realm {
     this.reszer = new Resizer(this.container, this.camera, this.renderer);
   }
   async init() {
-
+    
   }
   render() {
     this.renderer.render(this.scene, this.camera);
