@@ -1,4 +1,4 @@
-import { Clock } from "../../vendor/three/three.module.js";
+import { Clock } from "../../vendor/three.module.js";
 class Loop {
   constructor(camera, scene, renderer) {
     this.camera = camera;
