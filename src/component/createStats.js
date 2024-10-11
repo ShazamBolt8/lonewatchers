@@ -1,5 +1,4 @@
-function createStats() {
-  const logBar = document.getElementById("log-bar");
+function createStats(fpsDisplay) {
   const stats = {};
   let lastTime = performance.now();
   let frameCount = 0;
@@ -10,9 +9,7 @@ function createStats() {
       const fps = frameCount;
       frameCount = 0;
       lastTime = currentTime;
-      if (logBar) {
-        logBar.innerText = `FPS: ${fps}`;
-      }
+      fpsDisplay.innerText = `FPS: ${fps}`;
     }
   };
   return stats;

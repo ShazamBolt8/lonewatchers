@@ -11,8 +11,11 @@ import { CCTV } from "../component/CCTV.js";
 import { createStats } from "../component/createStats.js";
 
 class Realm {
-  constructor(container) {
+  constructor(container, orbitControls, rendererControls, fpsDisplay) {
     this.container = container;
+    this.orbitControls = orbitControls;
+    this.rendererControls = rendererControls;
+    this.fpsDisplay = fpsDisplay;
 
     this.isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
 
@@ -34,17 +37,43 @@ class Realm {
 
     this.scene.add(spotLight1, spotLight2);
 
-    this.stats = createStats();
-
     this.renderer = createRenderer();
     this.container.append(this.renderer.domElement);
 
-    // this.controls = createControls(this.camera, this.renderer.domElement);
-    //this.loop.updatables.push(this.controls);
-
     this.loop = new Loop(this.camera, this.scene, this.renderer);
+
+    this.controls = createControls(this.camera, this.renderer.domElement);
+
+    this.stats = createStats(this.fpsDisplay);
     this.loop.updatables.push(this.stats);
+
     this.resizer = new Resizer(this.container, this.camera, this.renderer);
+  }
+  enableControls() {
+    this.orbitControls.innerText = this.controls.enabled
+      ? "Controls: Enabled"
+      : "Controls: Disabled";
+    this.orbitControls.addEventListener("click", () => {
+      if (this.controls.enabled) {
+        this.controls.enabled = false;
+        this.orbitControls.innerText = "Controls: Disabled";
+      } else {
+        this.controls.enabled = true;
+        this.orbitControls.innerText = "Controls: Enabled";
+      }
+    });
+    this.rendererControls.innerText = this.rendererControls.useLegacyLights
+      ? "Legacy Lights"
+      : "No Legacy Lights";
+    this.rendererControls.addEventListener("click", () => {
+      if (this.renderer.useLegacyLights) {
+        this.rendererControls.innerText = "No Legacy Lights";
+        this.renderer.useLegacyLights = false;
+      } else {
+        this.rendererControls.innerText = "Legacy Lights";
+        this.renderer.useLegacyLights = true;
+      }
+    });
   }
   async init() {
     const rightCamera = new CCTV("right", this.scene, this.loop, this.isMobile);
@@ -53,6 +82,7 @@ class Realm {
     await leftCamera.init();
     rightCamera.toScene();
     leftCamera.toScene();
+    this.enableControls();
   }
   render() {
     this.renderer.render(this.scene, this.camera);

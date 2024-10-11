@@ -17,10 +17,56 @@ body {
   width: 100%;
   background: #282828;
 }
-#log-bar {
+.log-bar {
   position: absolute;
   bottom: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
   background: #000000;
   color: #ffffff;
   width: 100%;
+  align-items: center;
+  padding: 0.5em;
+}
+.log-bar button {
+  background: #282828;
+  color: #ffffff;
+  border: none;
+  padding: 0.2em 0.5em;
+  font-size: 1em;
+  text-align: center;
+  width: 12em;
+  transition: all 100ms;
+}
+.log-bar button:hover {
+  color: #000000;
+  background: #ffffff;
+}
+.log-bar button:active {
+  font-weight: bold;
+}
+#fpsDisplay {
+  font-size: 1.5em;
+}
+#logger {
+  font-size: 1.2em;
+}
+@media only screen and (max-width: 600px) {
+  .log-bar {
+    gap: 0.2em;
+    padding: 0.3em;
+    justify-content: space-between;
+  }
+  .log-bar button {
+    padding: 0.2em;
+    font-size: 0.9em;
+    width: 10em;
+  }
+  #fpsDisplay {
+    font-size: 1.2em;
+  }
+  #logger {
+    font-size: 1em;
+  }
 }
