@@ -10,8 +10,10 @@ class CCTV {
     this.isMobile = isMobile;
     this.basePath = basePath;
     this.animations = [];
+    console.log(this.basePath);
   }
   async loadCCTV() {
+    console.log(`${this.basePath}/assets/cctv_anim.glb`);
     return await loadGLTFModel(`${this.basePath}/assets/cctv_anim.glb`);
   }
   async init() {

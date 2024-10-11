@@ -22,6 +22,8 @@ class Realm {
       ? `/${document.title.replace(" ", "").toLocaleLowerCase()}`
       : "";
 
+    console.log(this.basePath);
+
     this.camera = createCamera();
     this.camera.position.set(0, 0, 5);
 
