@@ -1,13 +1,21 @@
-function handleProgress(xhr, message = "") {
+let lastProgress = null;
+let progressTimeout;
+
+function handleProgress(xhr, file = "") {
   if (xhr.lengthComputable) {
     const logBar = document.getElementById("logger");
-    const progress = (xhr.loaded / xhr.total) * 100;
-    const log = `${message} ${Math.round(progress, 2)}%`;
+    const progress = Math.round((xhr.loaded / xhr.total) * 100, 2);
+    file = file.split("/").pop();
+    const log = `${file} ${progress}%`;
     logBar.textContent = log;
-    if (progress >= 200) {
-      setTimeout(() => {
-        logBar.textContent = "";
+    if (lastProgress !== progress) {
+      clearTimeout(progressTimeout);
+      progressTimeout = setTimeout(() => {
+        if (lastProgress === progress) {
+          logBar.textContent = "";
+        }
       }, 2000);
+      lastProgress = progress;
     }
   }
 }

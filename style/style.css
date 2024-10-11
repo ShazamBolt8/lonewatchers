@@ -67,6 +67,7 @@ body {
     font-size: 1.2em;
   }
   #logger {
+    text-align: center;
     font-size: 1em;
   }
 }
