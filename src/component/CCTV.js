@@ -2,16 +2,17 @@ import { loadGLTFModel } from "./modelLoader.js";
 import { AnimationMixer } from "../../vendor/three.module.js";
 
 class CCTV {
-  constructor(role, scene, loop, isMobile) {
+  constructor(role, scene, loop, isMobile, basePath) {
     this.cctv = this.joint = this.mixer = null;
     this.role = role;
     this.scene = scene;
     this.loop = loop;
     this.isMobile = isMobile;
+    this.basePath = basePath;
     this.animations = [];
   }
   async loadCCTV() {
-    return await loadGLTFModel("../../assets/cctv_anim.glb");
+    return await loadGLTFModel(`${this.basePath}/assets/cctv_anim.glb`);
   }
   async init() {
     const model = await this.loadCCTV();

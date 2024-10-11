@@ -18,6 +18,9 @@ class Realm {
     this.fpsDisplay = fpsDisplay;
 
     this.isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
+    this.basePath = window.location.hostname.includes("github.io")
+      ? `/${document.title.replace(" ", "").toLocaleLowerCase()}`
+      : "";
 
     this.camera = createCamera();
     this.camera.position.set(0, 0, 5);
@@ -76,8 +79,8 @@ class Realm {
     });
   }
   async init() {
-    const rightCamera = new CCTV("right", this.scene, this.loop, this.isMobile);
-    const leftCamera = new CCTV("left", this.scene, this.loop, this.isMobile);
+    const rightCamera = new CCTV("right", this.scene, this.loop, this.isMobile, this.basePath);
+    const leftCamera = new CCTV("left", this.scene, this.loop, this.isMobile, this.basePath);
     await rightCamera.init();
     await leftCamera.init();
     rightCamera.toScene();
