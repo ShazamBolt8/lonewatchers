@@ -4,10 +4,11 @@ function handleProgress(xhr, message = "") {
     const progress = (xhr.loaded / xhr.total) * 100;
     const log = `${message} ${Math.round(progress, 2)}%`;
     logBar.textContent = log;
-    if (progress === 100) {
+    console.log(progress);
+    if (progress >= 100) {
       setTimeout(() => {
         logBar.textContent = "";
-      }, 1000);
+      }, 2000);
     }
   }
 }

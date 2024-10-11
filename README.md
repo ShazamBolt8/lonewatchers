@@ -1,6 +1,6 @@
 # Lone Watchers
 
-![Preview](/assets/final_realm.jpg)
+![Preview](/assets/realm_2.jpg)
 
 ## Description
 
